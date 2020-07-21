@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Fragment } from 'react'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
+const App = () => {
+    const carro = {
+        marca:"Ford",
+        rodas: 4
+    }
+
+    const estiloP = {
+        color:"blue",
+        border: "solid 1px black",
+        fontSize: '30px'
+    }
+    const nome = "Andre"
+    const titulo = <h1>Issso é um titulo</h1>
+    function mostraNome(sobrenome){
+        return "Valmyr" + sobrenome
+    }
+    return (
+        <Fragment>
+    <a href="https://www.origamid.com" title="Isso é um site">
+        Origamid
         </a>
-      </header>
-    </div>
-  );
+        <input type="text" id="nome"/>
+        <p>{nome}</p>
+        {titulo}
+        {mostraNome("Lima")}
+    <p>{new Date().getFullYear()}</p>
+    <p style={estiloP}>{carro.marca}</p>
+    <p>{carro.rodas}</p>
+        </Fragment>
+        )
 }
-
 export default App;
