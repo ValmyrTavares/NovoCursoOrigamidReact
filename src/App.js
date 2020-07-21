@@ -3,17 +3,19 @@ import React, { Fragment } from 'react'
 
 
 const App = ()=>{
-  const [contar, setContar] = React.useState(0)
+  const [dados, setDados] = React.useState(null)
 
   React.useEffect (() =>{
-    console.log("Executou")
-  },[contar])
+    fetch('https://ranekapi.origamid.dev/json/api/produto/notebook')
+    .then((response) => response.json())
+    .then((json) => setDados(json))
+  },[])
  
   return (
-    <Fragment>
-      <button onClick={()=>setContar(contar + 1)}>Clique aqui</button>
-      <p>{contar}</p>
-   
+    <Fragment>  
+      {dados && 
+      <p style={{color:'blue', fontSize:"30px"}}>{dados.nome}</p>   
+}
     </Fragment>
   )
 }
