@@ -1,24 +1,45 @@
-import React, { Fragment } from 'react'
+import React from 'react'
+import Product from './Product'
 
 
 
 const App = ()=>{
-  const [dados, setDados] = React.useState(null)
+  const [produto, setProduto] = React.useState(null)
+  const stilo = {
+    background:"green",
+    padding:'15px 25px',
+    color:'white',
+    margin: '10px'
+  }
 
-  React.useEffect (() =>{
-    fetch('https://ranekapi.origamid.dev/json/api/produto/notebook')
-    .then((response) => response.json())
-    .then((json) => setDados(json))
+  React.useEffect(()=>{
+    const produtoLocal = window.localStorage.getItem('produto')
+    if (produtoLocal!==null) setProduto(produtoLocal)
   },[])
+
+  React.useEffect(()=>{
+   if(produto !==null) window.localStorage.setItem('produto', produto)
+  },[produto])
+
+  function handleClick(event){
+    setProduto(event.target.innerText)
+  }
+ 
  
   return (
-    <Fragment>  
-      {dados && 
-      <p style={{color:'blue', fontSize:"30px"}}>{dados.nome}</p>   
-}
-    </Fragment>
+   <React.Fragment>
+     <p>Esse é o {produto}</p>
+     <button onClick={handleClick} style={stilo}>Smartphone</button>
+     <button onClick={handleClick} style={stilo}>Notebook</button>
+     <Product produto={produto} />
+   </React.Fragment>
   )
-}
+  }
 
 export default App;
+  
+    
+
+
+   
 
