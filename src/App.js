@@ -6,27 +6,18 @@ import React from 'react'
 const App = ()=>{
   
 
-  const [radio, setRadio]= React.useState('')
-
-  
-  function handleChange({target}){
-    setRadio(target.value)
-  }
-  
+  const [termos, setTermos]= React.useState(false)   
   
     return (    
       <div>
         <form  >
-         <label>
-           <input type="radio" onChange={handleChange} checked={radio === "stratocaster" } value="stratocaster"/>
-           Stratocaster
-         </label>
-         <label>
-           <input type="radio" onChange={handleChange} checked={radio === "lespaul" }  value="lespaul"/>
-           Les Paul
-         </label>
+          <label>
+            <input value={termos} type="checkbox" checked={termos} onChange={({target}) => setTermos(target.checked)}/>
+            Aceito os termos
+          </label>
         </form>
-        <p>{radio}</p>
+        {termos?"Está feito":"Vc precisa aceitar"}
+     
       </div>
 );
 
