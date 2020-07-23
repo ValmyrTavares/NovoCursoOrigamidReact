@@ -6,22 +6,27 @@ import React from 'react'
 const App = ()=>{
   
 
-  const [mensagem, setMensagem]= React.useState('')
+  const [radio, setRadio]= React.useState('')
 
   
-
+  function handleChange({target}){
+    setRadio(target.value)
+  }
   
   
     return (    
       <div>
         <form  >
-         <select type="text" value={mensagem} onChange={({target}) => setMensagem(target.value) }>
-           <option value='notebook'>Notebook</option>
-           <option value='smartphone'>Smartphone</option>
-           <option value='tablet'>Tablet</option>
-           </select>
+         <label>
+           <input type="radio" onChange={handleChange} checked={radio === "stratocaster" } value="stratocaster"/>
+           Stratocaster
+         </label>
+         <label>
+           <input type="radio" onChange={handleChange} checked={radio === "lespaul" }  value="lespaul"/>
+           Les Paul
+         </label>
         </form>
-        <p>{mensagem}</p>
+        <p>{radio}</p>
       </div>
 );
 
