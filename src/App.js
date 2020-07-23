@@ -15,7 +15,11 @@ const App = ()=>{
     return (    
       <div>
         <form  >
-         <textarea type="text" value={mensagem} onChange={({target}) => setMensagem(target.value) }/>
+         <select type="text" value={mensagem} onChange={({target}) => setMensagem(target.value) }>
+           <option value='notebook'>Notebook</option>
+           <option value='smartphone'>Smartphone</option>
+           <option value='tablet'>Tablet</option>
+           </select>
         </form>
         <p>{mensagem}</p>
       </div>
