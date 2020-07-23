@@ -5,11 +5,9 @@ import {GlobalContext} from './GlobalContext'
 const Produto = ()=>{
    const global = React.useContext(GlobalContext)
    console.log(global)
-  
-return(<div>
-    {global.contar}
-    <button onClick={global.adicionarUm}>Contar Um</button>
-    <button onClick={global.adicionarDois}>Contar Dois</button>
+   if( global.dados === null)return null;
+    return(<div>
+        Produto: {global.dados.map((produto) => <li key={produto.id}>{produto.nome}</li>)}
     </div> )
 }
 export default Produto;
