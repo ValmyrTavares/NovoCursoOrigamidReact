@@ -1,36 +1,93 @@
 import React from 'react'
 
+const formFields = [
+  {id:'nome',
+   label:'Nome',
+   type: 'text' 
+},
+{id:'email',
+label:'Email',
+type: 'email' 
+},
+{id:'senha',
+label:'Senha',
+type: 'password' 
+},
+{id:'cep',
+label:'CEP',
+type: 'text' 
+},
+{id:'rua',
+label:'Rua',
+type: 'text' 
+},
+{id:'numero',
+label:'Numero',
+type: 'text' 
+},
+{id:'bairro',
+label:'Bairro',
+type: 'text' 
+},
+{id:'cidade',
+label:'Cidade',
+type: 'text' 
+},
+{id:'estado',
+label:'Estado',
+type: 'text' 
+}
+]
+
 
 const App = ()=>{
   const [form, setForm] = React.useState({
     nome: '',
     email:'',
-    idade: undefined
+    senha: "",
+    cep:"",
+    rua:"",
+    numero:"",
+    bairro:"",
+    cidade:"",
+    estado:""
   })
+
+  const [response, setResponse]= React.useState(null)
 
   function handleChange({target}){
     const {id, value} = target
    setForm({...form, [id]: value})
     console.log(id, value)
   }
+
+  function handleSubmit(event){
+    event.preventDefault();
+    fetch('https://ranekapi.origamid.dev/json/api/usuario',{
+      method: 'POST',
+      headers:{
+        'Content-Type':'application/json'
+      },
+      body: JSON.stringify(form),
+    }).then(response => {
+      setResponse(response)
+    })
+  }
   
     return (    
-      <div>
-        <form >
-          <label htmlFor="nome">Nome</label>
-          <input id="nome" name="nome" type='text' value={form.nome} onChange={handleChange}/>
-          <label htmlFor="email">Email</label>
-          <input id="email" name="email" type='text' value={form.email} onChange={handleChange}/>
-          <label htmlFor="idade">Idade</label>
-          <input id="idade" name="idade" type='number' value={form.idade} onChange={handleChange}/>
-          <p>{form.email}</p>
-          <p>{form.nome}</p>
-          <p>{form.idade}</p>
-          <button>Enviar</button>
+     
+        <form  onSubmit={handleSubmit}>
+          {formFields.map(({id, label, type}) => (
+            <div key={id}>
+              <label htmlFor={id}>{label}</label>
+              <input id={id} name="nome" type={type} value={form[id]} onChange={handleChange}/>
+            </div>
+          ))}
+          {response && response.ok && <p>Formulario Enviado com sucesso</p>}
+            <button>Enviar</button>       
+          
         </form>
-
-
-      </div>
+      
     );
  
 }
