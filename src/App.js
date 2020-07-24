@@ -1,48 +1,20 @@
-import React from 'react'
+import React from "react";
+import Input from "./Forms/Input";
+import Select from "./Forms/Select";
+
+const App = () => {
+const [nome, setNome] = React.useState("")
+const [email, setEmail] = React.useState("")
+const [produto, setProduto]= React.useState('');
 
 
-
-const coresArray = ["azul","roxo","laranja","verde","vermelho","cinza"]
-const App = ()=>{
-  
-
-  const [cores, setCores]= React.useState(['vermelho'])   
-
-  function handleChange({target}){
-    if(target.checked){
-      setCores([...cores, target.value])
-      }else{
-        setCores(cores.filter((cor)=> cor !==target.value))
-      }
-  }
-
-   
-    console.log(cores)
-  
-
-  
-    return (    
-      <div>
-        <form  >
-          {coresArray.map((cor)=>  (<label key={cor}>
-            <input value={cor} checked={cores.includes(cor)} type="checkbox"  onChange={handleChange}/>
-           {cor}
-          </label>  
-          ))}       
-        </form>
-      </div>
-);
-     
-
-      
- 
-}
-
-
+  return (
+  <div>
+    <Select options={["Paris", "Firenzi", "Roma","Buenos Aires","Mendonza","Verona"]} value={produto} setValue={setProduto}/>
+    <Input id="nome" label="Nome"/>
+    <Input id="email" label="Email"/>
+  <p>{produto}</p>
+  </div>
+    )
+};
 export default App;
-  
-    
-
-
-   
-
