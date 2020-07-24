@@ -2,7 +2,7 @@ import React from 'react'
 
 
 
-
+const coresArray = ["azul","roxo","laranja","verde","vermelho","cinza"]
 const App = ()=>{
   
 
@@ -24,19 +24,15 @@ const App = ()=>{
     return (    
       <div>
         <form  >
-          <label>
-            <input value="azul" checked={cores.includes("azul")} type="checkbox"  onChange={handleChange}/>
-           Azul
-          </label>
-          <label>
-            <input value="vermelho" checked={cores.includes("vermelho")}type="checkbox"  onChange={handleChange}/>
-           Vermelho
-          </label>
+          {coresArray.map((cor)=>  (<label key={cor}>
+            <input value={cor} checked={cores.includes(cor)} type="checkbox"  onChange={handleChange}/>
+           {cor}
+          </label>  
+          ))}       
         </form>
-      
-     
       </div>
 );
+     
 
       
  
