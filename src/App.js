@@ -1,27 +1,91 @@
 import React from "react";
-import Radio from "./input/Radio";
+import RadioDesafio from "./FormDesafio/RadioDesafio";
+
+const perguntas = [
+  {
+    pergunta: "Qual método é utilizado para criar componentes",
+    options: [
+      "React.makeComponent()",
+      "React.createComponent",
+      "React.createElement",
+    ],
+    resposta: "React.createComponent",
+    id: "p1",
+  },
+  {
+    pergunta: "Como importamos um componente externo",
+    options: [
+      'import Component from "./Component',
+      'require("./Component")',
+      'import " ./Component',
+    ],
+    resposta: 'import Component from "./Component',
+    id: "p2",
+  },
+  {
+    pergunta: "Qual o Hook não é nativo",
+    options: ["useEffect()", "useFetch()", "useCallback()"],
+    resposta: "useFetch()",
+    id: "p3",
+  },
+  {
+    pergunta: "Qual palavras devem ser utilizadas para criad um hook",
+    options: ["set", "get", "use"],
+    resposta: "use",
+    id: "p4",
+  },
+];
 
 const App = () => {
- const [comp, setComp]= React.useState("")
- const [pagina, setPagina] = React.useState(0)
-//  const [nota, setNota] = React.useState(0)
- 
+  const [respostas, setRespostas]= React.useState({
+    p1:'',
+    p2:'',
+    p3:'',
+    p4:'',
+
+  })
+  const [slide, setSlide]= React.useState(0)
+  const [resultado, setResultado]=React.useState(null)
+
+  function handleChange({target}){
+    setRespostas({...respostas, [target.id]: target.value})
+  }
+   function resultadoFinal(){
+    console.log("Final")
+    const corretas = perguntas.filter(({id, resposta})=> respostas[id] ===resposta)
+    setResultado(`Voce acertou: ${corretas.length} de ${perguntas.length}`)
+    console.log(corretas)
+   }
 
 
-  return(
-   <>
-   {pagina===0 &&  <Radio pergunta="Qual compositor pertence ao Romantismo" options={["Beethoven","Vivaldi","Bartok","Chopin"]} setValue={setComp} 
-   value={comp}/>}  
-   {pagina===1 &&  <Radio pergunta="Qual a nocionalidade de Antônio Vivaldi" options={["Alemanha","Italia","Brasil","Etiópia"]} setValue={setComp} value={comp}/> }  
-   {pagina===2 &&  <Radio pergunta="Qual o principal instrumento de Chopin" options={["Piano","Cítara","Violino","Flauta"]} setValue={setComp} value={comp}/> }  
-   {pagina===3 &&  <Radio pergunta="Quantas sinfonias Beethovem compôs" options={["2","3","12","9"]} setValue={setComp} value={comp}/> }  
+  function handleClick(){
+    if(slide < perguntas.length - 1){
+      setSlide(slide + 1)
+    }else{
+      setSlide(slide + 1)
+      resultadoFinal()
+    }
+  }
 
 
-   <button onClick={()=> setPagina(pagina + 1)}>Resonder</button>
- 
-   {pagina}
-  </>
-  )
+
+  return (
+    <>
+      <form onSubmit={(event) =>event.preventDefault() }>
+        {perguntas.map((pergunta, index)=>(
+          <RadioDesafio
+          active={slide===index}
+           key={pergunta.id} 
+           value={respostas[pergunta.id]} 
+           onChange={handleChange} 
+           {...pergunta} />
+
+        ))}
+        {resultado ? <p>{resultado}</p> :  <button onClick={handleClick}>Próxima</button>}
+       
+      </form>
+    </>
+  );
 };
 
 export default App;
